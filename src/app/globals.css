@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/* CRITICAL: Configure Tailwind 4 for class-based dark mode (required for next-themes) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Theme CSS Variables */
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --border: #e5e5e5;
+  --accent: #3b82f6;
+  --dot-color: rgba(0, 0, 0, 0.15);
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #ededed;
+  --muted: #171717;
+  --muted-foreground: #a3a3a3;
+  --border: #262626;
+  --accent: #60a5fa;
+  --dot-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Tailwind Theme Bindings */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Global Styles */
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dot Grid Background - Uses CSS variable for theme-aware dot color */
+.dot-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: radial-gradient(circle at center, var(--dot-color) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+}
+
+/* Gradient overlays for sections */
+.section-gradient {
+  background: linear-gradient(180deg,
+      transparent 0%,
+      var(--background) 100%);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Glow effects */
+.glow-accent {
+  box-shadow: 0 0 40px -10px var(--accent);
+}
+
+/* Selection Colors */
+::selection {
+  background-color: var(--accent);
+  color: white;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
